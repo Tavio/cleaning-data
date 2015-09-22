@@ -19,5 +19,7 @@ test.dataset <- mutate(select(test.dataset, matches("mean\\(\\)|std\\(\\)")),
                       label = labels$label.name[match(test.labels$label, labels$label.num)]);
 
 merged.dataset <- rbind(training.dataset, test.dataset);
-merged.dataset.melt <- melt(merged.dataset, id=c("subject", "label"), measure.vars=setdiff(names(merged.dataset), c("subject", "label")));
+merged.dataset.melt <- melt(merged.dataset, 
+                            id=c("subject", "label"), 
+                            measure.vars=setdiff(names(merged.dataset), c("subject", "label")));
 summarized.dataset <- dcast(merged.dataset.melt, subject + label ~ variable, mean);
