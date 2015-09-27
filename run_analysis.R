@@ -1,5 +1,7 @@
 library(data.table)
 library(dplyr)
+library(rmarkdown)
+library(knitr)
 
 # Load feature and label names into tables
 features <- fread("UCI HAR Dataset/features.txt", sep=" ", header=FALSE, col.names=c("feature.num", "feature.name"));
@@ -38,3 +40,6 @@ names(summarized.dataset) <- gsub("std\\(\\)", "std", names(summarized.dataset))
 
 # Write the tidy dataset to a file
 write.table(summarized.dataset, "summarized_dataset.txt", row.names=FALSE);
+
+# Create codebook
+render('codebook.Rmd', 'html_document', output_dir='.', output_file='Codebook.htm')
